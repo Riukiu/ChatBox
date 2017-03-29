@@ -32,7 +32,6 @@ client.on('message', message => {
 						url:'http://www.chucknorrisfacts.fr/api/get?data=tri:alea;type:txt;nb:1',
 						method: 'GET',
 					}).then(function (response) {
-							console.log(response);
 							message.reply(response.data[0].fact + " Jajaja on se fend la poire.");
 						}).catch(function (error) {
 							console.log(error.response.data);
@@ -40,7 +39,15 @@ client.on('message', message => {
 				}
 				else if(res[i].includes("!météo")){
 					ville = res[i].replace("!météo ","");
-					message.reply('Ville = '+ ville);
+
+					axios.request({
+						url:'http://samples.openweathermap.org/data/2.5/weather?q='+ville+'&appid=5aaa01984cc54ac180592116b5e0fb9c',
+						method: 'GET',
+					}).then(function (response) {
+							message.reply("Météo à "+ville+": "+response.data.main.temp);
+						}).catch(function (error) {
+							console.log(error.response.data);
+					});	
 				}
 				else{
 					message.reply('Pas compris');
