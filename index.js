@@ -33,7 +33,7 @@ client.on('message', message => {
 						method: 'GET',
 					}).then(function (response) {
 							console.log(response);
-							message.reply(et.decode(response.data[0].fact) + " Jajaja on se fend la poire.");
+							message.reply(response.data[0].fact + " Jajaja on se fend la poire.");
 						}).catch(function (error) {
 							console.log(error.response.data);
 					});					
