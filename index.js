@@ -12,7 +12,7 @@ client.on('message', message => {
 		message.reply('Pas compris');
 	}*/
 	
-	if(message.channel.type=="dm" || message.isMentioned(client.user)){
+	if((message.channel.type=="dm" && !message.author.bot) || message.isMentioned(client.user)){
 		message.reply('Pas compris');
 	}
 	
