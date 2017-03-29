@@ -18,4 +18,3 @@ client.on('presenceUpdate', function(oldMember, newMember) {
 });
 
 client.login(process.env.DISCORD_TOKEN);
-console.log("finish");
