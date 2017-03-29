@@ -39,7 +39,7 @@ client.on('message', message => {
 					});					
 				}
 				else if(res[i].includes("!météo")){
-					ville = res[i].split(" ")[1];
+					ville = res[i].replace("!météo ","");
 					message.reply('Ville = '+ ville);
 				}
 				else{
