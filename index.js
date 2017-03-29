@@ -11,9 +11,12 @@ client.on('message', message => {
 	if (message.mentions.users.get(client.user.id) != undefined) {
 		message.reply('Pas compris');
 	}*/
-	if(message.isMentioned(client.user)){
+	
+	if(message.channel.recipient == client.user || message.isMentioned(client.user)){
 		message.reply('Pas compris');
 	}
+	
+	
 });
 
 client.on('presenceUpdate', function(oldMember, newMember) {
