@@ -1,5 +1,11 @@
 const Discord = require('discord.js');
+var express = require('express.js');
 
+var app = express();
+
+app.get('/', function(req,res){
+	res.send('ready');
+});
 const client = new Discord.Client();
 
 client.on('ready', () => {
@@ -26,3 +32,4 @@ client.on('presenceUpdate', function(oldMember, newMember) {
 });
 
 client.login(process.env.DISCORD_TOKEN);
+app.listen(process.env.PORT || 5000);
