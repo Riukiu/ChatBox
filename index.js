@@ -20,25 +20,34 @@ client.on('message', message => {
 	}*/
 	
 	if((message.channel.type=="dm" && !message.author.bot) || message.isMentioned(client.user)){
-		var re = /(!.*)/i;
+		var re = /(!blague|!météo .*|image)/g;
 		var res = message.content.match(re);
+
 		console.log(res);
 		if(res != null){
-			if(res[0] == "!blague"){
-			//message.reply("Chuck norris peut finir super mario sans sauter.");				
-				axios.request({
-					url:'http://www.chucknorrisfacts.fr/api/get?data=tri:alea;type:txt;nb:1',
-					method: 'GET',
-				}).then(function (response) {
-						console.log(response);
-						message.reply(response.data[0].fact + " Jajaja on se fend la poire.");
-					}).catch(function (error) {
-						console.log(error.response.data);
-				});					
+			for(i in res){	
+				if(res[i].includes("!blague")){
+				//message.reply("Chuck norris peut finir super mario sans sauter.");				
+					axios.request({
+						url:'http://www.chucknorrisfacts.fr/api/get?data=tri:alea;type:txt;nb:1',
+						method: 'GET',
+					}).then(function (response) {
+							console.log(response);
+							message.reply(response.data[0].fact + " Jajaja on se fend la poire.");
+						}).catch(function (error) {
+							console.log(error.response.data);
+					});					
+				}
+				else if(res[i].includes("!météo")){
+					ville = res[i].split(" ")[1];
+					message.reply('Ville = '+ ville);
+				}
+				else{
+					message.reply('Pas compris');
+				}
 			}
-			else{
-				message.reply('Pas compris');
-			}
+			 
+
 		}
 		else{
 			message.reply('Pas compris');
