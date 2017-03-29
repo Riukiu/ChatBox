@@ -15,6 +15,7 @@ client.on('message', message => {
 
 client.on('presenceUpdate', function(oldMember, newMember) {
 	console.log(oldMember.presence, '=>', newMember.presence);
+	console.log(newMember);
 	if(newMember.nickname == "Barjow"){
 		newMember.sendMessage("Bonjour maitre");
 	}
