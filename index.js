@@ -20,7 +20,7 @@ client.on('message', message => {
 	
 	if((message.channel.type=="dm" && !message.author.bot) || message.isMentioned(client.user)){
 		var re = /(!.*)/i;
-		var res = message.channel.content.match(re);
+		var res = message.content.match(re);
 		console.log(res);
 		if(res[0] != ""){
 			if(res[0] == "!blague")
