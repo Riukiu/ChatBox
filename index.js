@@ -30,13 +30,19 @@ client.on('message', message => {
 					url:'http://www.chucknorrisfacts.fr/api/get?data=tri:alea;type:txt;nb=1',
 					method: 'GET',
 				}).then(function (response) {
-						message.reply(response + " Jajaja on se fend la poire.");
+						message.reply(response.data + " Jajaja on se fend la poire.");
 					}).catch(function (error) {
 						console.log(error.response.data);
 				});					
 			}
+			else{
+				message.reply('Pas compris');
+			}
 		}
-		//message.reply('Pas compris');
+		else{
+			message.reply('Pas compris');
+		}
+		//
 
 	}
 	
