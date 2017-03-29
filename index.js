@@ -27,11 +27,11 @@ client.on('message', message => {
 			if(res[0] == "!blague"){
 			//message.reply("Chuck norris peut finir super mario sans sauter.");				
 				axios.request({
-					url:'http://www.chucknorrisfacts.fr/api/get?data=tri:alea;type:txt;nb=1',
+					url:'http://www.chucknorrisfacts.fr/api/get?data=tri:alea;type:txt;nb:1',
 					method: 'GET',
 				}).then(function (response) {
 						console.log(response);
-						message.reply(response.data + " Jajaja on se fend la poire.");
+						message.reply(response.data[0].fact + " Jajaja on se fend la poire.");
 					}).catch(function (error) {
 						console.log(error.response.data);
 				});					
