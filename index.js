@@ -1,5 +1,6 @@
 const Discord = require('discord.js');
 var express = require('express');
+var axios = require('axios');
 
 var app = express();
 
@@ -23,18 +24,27 @@ client.on('message', message => {
 		var res = message.content.match(re);
 		console.log(res);
 		if(res != null){
-			if(res[0] == "!blague")
-				message.reply("Chuck norris peut finir super mario sans sauter.");		
+			if(res[0] == "!blague"){
+			//message.reply("Chuck norris peut finir super mario sans sauter.");				
+				axios.request({
+					url:'http://www.chucknorrisfacts.fr/api/get?data=tri:alea;type:txt;nb=1',
+					method: 'GET',
+				}).then(function (response) {
+						message.reply(response + " Jajaja on se fend la poire.");
+					}).catch(function (error) {
+						console.log(error.response.data);
+				});					
+			}
 		}
 		//message.reply('Pas compris');
 
-	}	
+	}
 	
 });
 
 client.on('presenceUpdate', function(oldMember, newMember) {
-	console.log(oldMember.presence, '=>', newMember.presence);
-	if(newMember.presence.status == "online" && newMember.user.username == "Barjow"){
+	//console.log(oldMember.presence, '=>', newMember.presence);
+	if(newMember.presence.status == "online" && newMember.user.username == "bramas"){
 		newMember.sendMessage("Bonjour maitre, je suis "+client.user.id+" le bot de Ludo et Adel, que puis-je faire pour vous aujourd'hui ?");
 	}
 });
