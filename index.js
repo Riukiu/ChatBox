@@ -22,11 +22,11 @@ client.on('message', message => {
 		var re = /(!.*)/i;
 		var res = message.content.match(re);
 		console.log(res);
-		if(res[0] != ""){
+		if(res != null){
 			if(res[0] == "!blague")
 				message.reply("Chuck norris peut finir super mario sans sauter.");		
 		}
-		message.reply('Pas compris');
+		//message.reply('Pas compris');
 
 	}	
 	
