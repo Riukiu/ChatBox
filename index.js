@@ -30,6 +30,7 @@ client.on('message', message => {
 					url:'http://www.chucknorrisfacts.fr/api/get?data=tri:alea;type:txt;nb=1',
 					method: 'GET',
 				}).then(function (response) {
+						console.log(response);
 						message.reply(response.data + " Jajaja on se fend la poire.");
 					}).catch(function (error) {
 						console.log(error.response.data);
