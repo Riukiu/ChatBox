@@ -20,7 +20,7 @@ client.on('message', message => {
 	}*/
 	
 	if((message.channel.type=="dm" && !message.author.bot) || message.isMentioned(client.user)){
-		var re = /(!blague|!météo .*|image)/g;
+		var re = /!([a-z])* ([a-z]*)/g;
 		var res = message.content.match(re);
 
 		console.log(res);
