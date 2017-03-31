@@ -20,7 +20,7 @@ client.on('message', message => {
 	}*/
 	
 	if((message.channel.type=="dm" && !message.author.bot) || message.isMentioned(client.user)){
-		var re = /!([a-z])* ([a-z]*)/g;
+		var re = /!([a-z]|\s)*([a-z]*)/g;
 		var res = message.content.match(re);
 
 		console.log(res);
@@ -37,8 +37,8 @@ client.on('message', message => {
 							console.log(error.response.data);
 					});					
 				}
-				else if(res[i].includes("!météo")){
-					ville = res[i].replace("!météo ","");
+				else if(res[i].includes("!meteo")){
+					ville = res[i].replace("!meteo ","");
 
 					axios.request({
 						url:'http://samples.openweathermap.org/data/2.5/weather?q='+ville+'&appid=5aaa01984cc54ac180592116b5e0fb9c',
