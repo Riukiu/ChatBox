@@ -3,6 +3,8 @@ var express = require('express');
 var axios = require('axios');
 var et = require('html-entities').AllHtmlEntities();
 var app = express();
+var blague = require('./blague.js');
+var meteo = require('./meteo.js');
 
 app.get('/', function(req,res){
 	res.send('ready');
@@ -27,37 +29,29 @@ client.on('message', message => {
 		if(res != null){
 			for(i in res){	
 				if(res[i].includes("!blague")){
-				//message.reply("Chuck norris peut finir super mario sans sauter.");				
-					axios.request({
-						url:'http://www.chucknorrisfacts.fr/api/get?data=tri:alea;type:txt;nb:1',
-						method: 'GET',
-					}).then(function (response) {
-							message.reply(response.data[0].fact + " Jajaja on se fend la poire.");
-						}).catch(function (error) {
-							console.log(error.response.data);
-					});					
+					blague.replyJoke(message);
 				}
 				else if(res[i].includes("!meteo")){
-					ville = res[i].replace("!meteo ","");
+					//console.log("res[i]"+ res[i]);
+					var ville = res[i].replace("!meteo","");
+					//console.log("ville : "+ ville);
+					meteo.replyMeteo(message, ville);
 
-					axios.request({
-						url:'http://samples.openweathermap.org/data/2.5/weather?q='+ville+'&appid=5aaa01984cc54ac180592116b5e0fb9c',
-						method: 'GET',
-					}).then(function (response) {
-							message.reply("Météo à "+ville+": "+response.data.main.temp+" degrés kelvin");
-						}).catch(function (error) {
-							console.log(error.response.data);
-					});	
+				}
+				else if(res[i].includes("!image")){
+
+				}
+				else if(res[i].includes("!iss")){
+					
 				}
 				else{
-					message.reply('Pas compris');
+					message.reply('Je n\'ai pas compris la commande suivante : '+res[i]+', Mon vocabulaire ne se limite qu\'à: ...');
 				}
 			}
 			 
-
 		}
 		else{
-			message.reply('Pas compris');
+			message.reply('Je n\'ai pas compris. Mon vocabulaire ne se limite qu\'à: ...');
 		}
 		//
 
@@ -72,5 +66,6 @@ client.on('presenceUpdate', function(oldMember, newMember) {
 	}
 });
 
-client.login(process.env.DISCORD_TOKEN);
+client.login("Mjk2NTM0NDgzOTk2Mzc3MDk3.C8OQ5g.JMh30QRrGKudUyAOd5HjBR2EmDQ");
+//client.login(process.env.DISCORD_TOKEN);
 app.listen(process.env.PORT || 5000);
