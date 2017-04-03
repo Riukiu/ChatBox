@@ -9,6 +9,7 @@ var meteo = require('./meteo.js');
 app.get('/', function(req,res){
 	res.send('ready');
 });
+
 const client = new Discord.Client();
 
 client.on('ready', () => {
@@ -22,6 +23,7 @@ client.on('message', message => {
 	}*/
 	
 	if((message.channel.type=="dm" && !message.author.bot) || message.isMentioned(client.user)){
+		
 		var re = /!([a-z]|\s)*([a-z]*)/g;
 		var res = message.content.match(re);
 
@@ -53,10 +55,9 @@ client.on('message', message => {
 		else{
 			message.reply('Je n\'ai pas compris. Mon vocabulaire ne se limite qu\'à: ...');
 		}
-		//
 
 	}
-	
+
 });
 
 client.on('presenceUpdate', function(oldMember, newMember) {
