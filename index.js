@@ -66,6 +66,6 @@ client.on('presenceUpdate', function(oldMember, newMember) {
 	}
 });
 
-client.login("Mjk2NTM0NDgzOTk2Mzc3MDk3.C8OQ5g.JMh30QRrGKudUyAOd5HjBR2EmDQ");
-//client.login(process.env.DISCORD_TOKEN);
+//client.login("Mjk2NTM0NDgzOTk2Mzc3MDk3.C8OQ5g.JMh30QRrGKudUyAOd5HjBR2EmDQ");
+client.login(process.env.DISCORD_TOKEN);
 app.listen(process.env.PORT || 5000);
