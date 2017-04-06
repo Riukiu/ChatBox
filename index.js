@@ -5,6 +5,7 @@ var app = express();
 var blague = require('./blague.js');
 var meteo = require('./meteo.js');
 var image = require('./my_modules/image.js');
+var iss = require('./my_modules/iss.js');
 
 app.get('/', function(req,res){
 	res.send('ready');
@@ -42,7 +43,7 @@ client.on('message', message => {
 					image.getImage(message,query);
 				}
 				else if(res[i].includes("!iss")){
-					
+					iss.getIss(message);
 				}
 				else{
 					message.reply('Je n\'ai pas compris la commande suivante : '+res[i]+', Mon vocabulaire ne se limite qu\'à: ...');
