@@ -37,7 +37,7 @@ exports.getIss = function(message){
 				    // outputBuffer contains upside down, 300px wide, alpha channel flattened
 				    // onto orange background, composited with overlay.png with SE gravity,
 				    // sharpened, with metadata, 90% quality WebP image data. Phew!
-				    message.sendFile(iss_msg.png);
+				    message.sendFile("iss_msg.png");
 				  });
 
 			});
