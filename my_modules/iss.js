@@ -1,7 +1,8 @@
 var axios = require('axios');
 var fs = require('fs'),
 request = require('request');
-var sharp = require('sharp');
+var Jimp = require("jimp");
+//var sharp = require('sharp');
 
 /*
 	CODE FROM STACK OVERFLOW
@@ -23,22 +24,27 @@ exports.getIss = function(message){
 		method: 'GET',
 	}).then(function (response) {
 			//console.log(response);
-			
 			var LAT = response.data.latitude;
 			var LNG = response.data.longitude;
 
-			download("http://staticmap.openstreetmap.de/staticmap.php?center="+LAT+","+LNG+"&zoom=5&size=400x300&maptype=mapnik&markers="+LAT+","+LNG+",ltblu-pushpin", 'iss_map.png', function(){
+			download("http://staticmap.openstreetmap.de/staticmap.php?center="+LAT+","+LNG+"&zoom=2&size=400x300&maptype=mapnik", 'iss_map.png', function(){
 			   	console.log('done');
-			   	sharp('iss_map.png')
-				  .overlayWith('iss_icon.png', { gravity: sharp.gravity.southeast } )
-				  .sharpen()
-				  .toFile("iss_msg.png")
-				  .then(function() {
-				    // outputBuffer contains upside down, 300px wide, alpha channel flattened
-				    // onto orange background, composited with overlay.png with SE gravity,
-				    // sharpened, with metadata, 90% quality WebP image data. Phew!
-				    message.sendFile("iss_msg.png");
-				  });
+			   	//message.sendFile("iss_map.png");
+			   	Jimp.read("iss_icon.png").then(function(src){
+			   		src.resize(64,64);
+			   		Jimp.read("iss_map.png").then(function (lenna) {
+					         lenna.composite(src, 200-32, 150-32)
+					         .write("iss_map_final.png", function(){
+					         	message.channel.sendFile("iss_map_final.png","iss_map_final.png","Voici où se trouve l'ISS: ",function(err,mess){
+	                                if(err){
+	                                    message.reply('FATAL ERROR');
+	                                }
+                      		    });
+					         }); // save
+					}).catch(function (err) {
+					    console.error(err);
+					});
+			   	});
 
 			});
 
