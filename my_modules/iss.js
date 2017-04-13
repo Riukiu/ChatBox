@@ -1,11 +1,11 @@
 var axios = require('axios');
 var fs = require('fs'),
 request = require('request');
-var Jimp = require("jimp");
-//var sharp = require('sharp');
+var Jimp = require("jimp");    //Module qui permet de faire du traitement d'image
+
 
 /*
-	CODE FROM STACK OVERFLOW
+	Function download from STACK OVERFLOW
 */
 var download = function(uri, filename, callback){
   request.head(uri, function(err, res, body){
@@ -32,15 +32,15 @@ exports.getIss = function(message){
 			   	//message.sendFile("iss_map.png");
 			   	Jimp.read("iss_icon.png").then(function(src){
 			   		src.resize(64,64);
-			   		Jimp.read("iss_map.png").then(function (lenna) {
+			   		Jimp.read("iss_map.png").then(function (lenna) {  //.composite pour ajouter un overlay
 					         lenna.composite(src, 200-32, 150-32)
 					         .write("iss_map_final.png", function(){
 					         	message.channel.sendFile("iss_map_final.png","iss_map_final.png","Voici où se trouve l'ISS: ",function(err,mess){
 	                                if(err){
-	                                    message.reply('FATAL ERROR');
+	                                    message.reply('ISS : ERROR');
 	                                }
                       		    });
-					         }); // save
+					         });
 					}).catch(function (err) {
 					    console.error(err);
 					});

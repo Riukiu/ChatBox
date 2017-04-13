@@ -14,7 +14,7 @@ exports.replyMeteo = function(message, ville){
 	}).then(function (response) {
 		var emot = "";
 		
-		//console.log(response.data.list[1].weather[0].description);
+		// Ici, nous construisons des smileys en fonction du climat.
 		
 		if((response.data.list[1].weather[0].description).includes("clouds")){
 			emot = ":cloud: :frowning2:";

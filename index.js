@@ -13,25 +13,20 @@ app.get('/', function(req,res){
 
 const client = new Discord.Client();
 
-
 client.on('ready', () => {
 	console.log('I am ready!');
 });
 
-client.on('message', message => {
-/*
-	if (message.mentions.users.get(client.user.id) != undefined) {
-		message.reply('Pas compris');
-	}*/
-	
+client.on('message', message => {	
 	if((message.channel.type=="dm" && !message.author.bot) || message.isMentioned(client.user)){
 		
+
 		var re = /!([a-z]|\s)*([a-z]*)/g;
-		var res = message.content.match(re);
+		var res = message.content.match(re);  //Regex pour récupérer les commandes tapées par l'utilisateur.
 
 		if(res != null){
-			for(i in res){
-				if(res[i].includes("!blague")){
+			for(i in res){ //Nous pouvons traiter plusierus commandes.
+				if(res[i].includes("!blague")){ // Utilisation d'includes permet au bot de comprendre même si il y a une faute de frappe: !blagues ! blaguee...
 					blague.replyJoke(message);
 				}
 				else if(res[i].includes("!meteo")){
@@ -49,17 +44,15 @@ client.on('message', message => {
 					message.reply('Je n\'ai pas compris la commande suivante : '+res[i]+', Mon vocabulaire ne se limite qu\'à: ...');
 				}
 			}
-			 
 		}
 		else{
-			message.reply('Je n\'ai pas compris. Mon vocabulaire ne se limite qu\'à: ...');
+			message.reply('Je n\'ai pas compris. Mon vocabulaire ne se limite qu\'à: !blague\n !meteo VILLE\n !image IMAGE\n !iss');
 		}
 	}
 });
 
 client.on('presenceUpdate', function(oldMember, newMember) {
-	//console.log(oldMember.presence, '=>', newMember.presence);
-	if(newMember.presence.status == "online" && newMember.user.username == "barjow"){
+	if(newMember.presence.status == "online" && newMember.user.username == "barjow"){  //Normalement bramas
 		newMember.sendMessage("Bonjour maitre, je suis "+client.user.id+" le bot de Ludo et Adel, que puis-je faire pour vous aujourd'hui ?");
 	}
 });
