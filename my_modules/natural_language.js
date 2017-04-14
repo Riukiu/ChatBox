@@ -1,5 +1,8 @@
 let Wit = null;
 Wit = require('node-wit').Wit;
+var meteo = require('../meteo.js');
+var axios = require('axios');
+
 
 const accessToken = (() => {
   return "TW3QQWBWDKISHWMQJYS3ON5PVLSWQDHF";
@@ -27,7 +30,31 @@ const actions = {
     return new Promise(function(resolve, reject) {
       var location = firstEntityValue(entities, "location")
       if (location) {
-        context.forecast = 'sunny in ' + location; // we should call a weather API here
+          axios.request({
+                        url:'http://api.openweathermap.org/data/2.5/forecast/daily?q='+location+'&appid=5aaa01984cc54ac180592116b5e0fb9c&cnt=2',
+
+                        method: 'GET',
+                      }).then(function (response) {
+                        var emot = "";
+                        
+                        // Ici, nous construisons des smileys en fonction du climat.
+                        
+                        if((response.data.list[1].weather[0].description).includes("clouds")){
+                          emot = ":cloud: :frowning2:";
+                        }
+                        else if((response.data.list[1].weather[0].description).includes("rain")){
+                          emot = ":cloud_rain: :disappointed_relieved:";
+                        }
+                        else if((response.data.list[1].weather[0].description).includes("clear")){
+                          emot =":sunny: :grinning:";
+                        }
+
+                          context.forecast = "The weather will be "+response.data.list[1].weather[0].description+" in "+location+" tomorrow."+emot+" \n"+"Temperature:  "+(response.data.list[1].temp.day-273.15)+"°";
+                        }).catch(function (error) {
+                          context.forecast = "Problème rencontré...";
+                        });
+        //context.forecast = 'sunny in ' + location; // we should call a weather API here
+
         delete context.missingLocation;
       } else {
         context.missingLocation = true;
