@@ -52,7 +52,7 @@ client.on('message', message => {
 });
 
 client.on('presenceUpdate', function(oldMember, newMember) {
-	if(newMember.presence.status == "online" && newMember.user.username == "barjow"){  //Normalement bramas
+	if(newMember.presence.status == "online" && newMember.user.username == "Barjow"){  //Normalement bramas
 		newMember.sendMessage("Bonjour maitre, je suis "+client.user.id+" le bot de Ludo et Adel, que puis-je faire pour vous aujourd'hui ?");
 	}
 });
