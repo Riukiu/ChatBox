@@ -15,6 +15,7 @@ exports.getImage = function(message, query){
 			message.reply(response.data.data[0].link);
 
 			}).catch(function (error) {
+				message.reply("No image found");
 				console.log(error.response.data);
 	});
 }
